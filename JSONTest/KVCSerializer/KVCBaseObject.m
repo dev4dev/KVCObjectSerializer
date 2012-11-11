@@ -1,4 +1,4 @@
-//
+////
 //  KVCBaseObject.m
 //  JSONTest
 //
@@ -7,10 +7,13 @@
 //
 
 #import "KVCBaseObject.h"
-#import "JSON.h"
+#import "SBJSON.h"
+
+static NSDateFormatter* dateFormatter;
 
 @implementation KVCBaseObject
 
+NSString* const jsonDefaultDateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 const char * property_getTypeString( objc_property_t property );
 
 - (id) init {
@@ -39,10 +42,12 @@ const char * property_getTypeString( objc_property_t property );
     return nil;
 }
 
+- (NSString *) getDateFormatForPropertyName:(NSString *)propertyName {
+	return jsonDefaultDateFormat;
+}
+
 + (id)objectForJSON:(NSString *) inputJSON {
-    SBJSON *parser = [[SBJSON alloc] init];
-	NSDictionary *jDict = [parser objectWithString:inputJSON error:nil];
-    [parser autorelease];
+	NSDictionary *jDict = [inputJSON JSONValue];
     return [self objectForDictionary:jDict];
 }
 
@@ -82,7 +87,7 @@ const char * property_getTypeString( objc_property_t property )
 + (char *) typeOfPropertyNamed: (const char *) rawPropType
 {
     int k = 0;
-    char * parsedPropertyType = malloc(sizeof(char *) * 16);
+    char * parsedPropertyType = malloc(sizeof(char) * 16);
     if (*rawPropType == 'T') {
         rawPropType++;
     } else { 
@@ -90,6 +95,9 @@ const char * property_getTypeString( objc_property_t property )
     }
     
     if (rawPropType == NULL) {
+		if (parsedPropertyType != NULL) {
+			free((char *)parsedPropertyType);
+		}
         return NULL;
     }
     if (*rawPropType == '@') {
@@ -114,6 +122,10 @@ const char * property_getTypeString( objc_property_t property )
         parsedPropertyType = strcpy(parsedPropertyType,"BOOL\0");
         return parsedPropertyType;
     }
+
+	if (parsedPropertyType != NULL) {
+		free((char *)parsedPropertyType);
+	}
     return ( NULL );
 }
 
@@ -153,6 +165,14 @@ const char * property_getTypeString( objc_property_t property )
 +(BOOL) isPropertyTypeArray:(NSString *)propertyType {
     if ([propertyType isEqualToString:@"NSArray"] ||
         [propertyType isEqualToString:@"NSMutableArray"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
++(BOOL) isPropertyTypeDate:(NSString *)propertyType {
+    if ([propertyType isEqualToString:@"NSDate"]) {
         return YES;
     } else {
         return NO;
@@ -201,23 +221,33 @@ const char * property_getTypeString( objc_property_t property )
 }
 
 + (id)objectForDictionary:(NSDictionary *) inputDict {
-    if ([inputDict isKindOfClass:[NSNull class]]) {
-        return nil;
-    }
-    
-    const char* className = class_getName([self class]);
-    NSDictionary * propertyDict = [self getPropertiesAndTypesForClassName:className];
+	if ([inputDict isKindOfClass:[NSNull class]]) {
+		return nil;
+	}
+
+	//Create our object
+	const char* className = class_getName([self class]);
+	id kvcObject = [[NSClassFromString([NSString stringWithCString:className encoding:NSUTF8StringEncoding]) alloc] init];
+	[kvcObject updateFromDictionary:inputDict];
+	return [kvcObject autorelease];
+}
+
+- (void)
+updateFromDictionary:(NSDictionary*)dictionary
+{
+	const char* className = class_getName([self class]);
+    NSDictionary * propertyDict = [KVCBaseObject getPropertiesAndTypesForClassName:className];
     NSArray * propertyKeys = [propertyDict allKeys];
     
-    //Create our object
-    id kvcObject = [[NSClassFromString([NSString stringWithCString:className encoding:NSUTF8StringEncoding]) alloc] init];
-    
-    for (NSString * key in [inputDict allKeys]) {
-        id propertyValue = [inputDict objectForKey:key];
+	if (!dateFormatter) {
+		dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	}
+    for (NSString * key in [dictionary allKeys]) {
+        id propertyValue = [dictionary objectForKey:key];
         
         
         if (![propertyKeys containsObject:key]) {
-            key = [kvcObject getPropertyNameForJsonKey:key];
+            key = [self getPropertyNameForJsonKey:key];
         }
         if (key) {
             NSString * propType = [propertyDict objectForKey:key];
@@ -231,21 +261,27 @@ const char * property_getTypeString( objc_property_t property )
             
             if ([KVCBaseObject isPropertyTypeArray:propType]) {
                 
-                NSString * componentType = [kvcObject getComponentTypeForCollection:key];
+                NSString * componentType = [self getComponentTypeForCollection:key];
                 NSArray  * jArray = (NSArray *)propertyValue;
-                // If the object has specified a type, create objects of that type. else 
+                // If the object has specified a type, create objects of that type. else
                 // set the array as such.
                 if ([componentType length] > 1) {
                     NSArray * componentArray = [KVCBaseObject arrayForType:componentType withJSONArray:jArray];
-                    [kvcObject setValue:componentArray forKey:key];
+                    [self setValue:componentArray forKey:key];
                 } else {
-                    [kvcObject setValue:jArray forKey:key];
+                    [self setValue:jArray forKey:key];
                 }
                 
             } else if ([KVCBaseObject isPropertyTypeBasic:propType]) {
                 
-                [kvcObject setValue:propertyValue forKey:key];
-                
+                [self setValue:propertyValue forKey:key];
+				
+			} else if ([KVCBaseObject isPropertyTypeDate:propType]) {
+				
+				dateFormatter.dateFormat = [self getDateFormatForPropertyName:key];
+				NSDate* dateValue = [dateFormatter dateFromString:propertyValue];
+				[self setValue:dateValue forKey:key];
+				
             } else {
                 /*
                  * If the component is not any primitive type or array
@@ -254,15 +290,13 @@ const char * property_getTypeString( objc_property_t property )
                 Class childClass = NSClassFromString(propType);
                 if ([childClass isSubclassOfClass:[KVCBaseObject class]]) {
                     id kvcChild = [childClass objectForDictionary:propertyValue];
-                    [kvcObject setValue:kvcChild forKey:key];
+                    [self setValue:kvcChild forKey:key];
                 } else {
-                    [kvcObject setValue:propertyValue forKey:key];
+                    [self setValue:propertyValue forKey:key];
                 }
             }
         }
-        
     }
-    return [kvcObject autorelease];
 }
 
 - (NSString *)customKeyForPropertyName:(NSString *)propertyName {
@@ -279,6 +313,9 @@ const char * property_getTypeString( objc_property_t property )
     NSDictionary * propertyDict = [KVCBaseObject getPropertiesAndTypesForClassName:className];
     
     NSMutableDictionary * resultDict = [[NSMutableDictionary alloc] init];
+	if (!dateFormatter) {
+		dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	}
     for (NSString * currentProperty in propertyDict) {
         
         NSString * propType = [propertyDict objectForKey:currentProperty];
@@ -328,7 +365,13 @@ const char * property_getTypeString( objc_property_t property )
                 basicValue = @"";
             }
             [resultDict setValue:basicValue forKey:[self customKeyForPropertyName:currentProperty]];
-            
+		
+		} else if ([KVCBaseObject isPropertyTypeDate:propType]) {
+			
+			dateFormatter.dateFormat = [self getDateFormatForPropertyName:currentProperty];
+			NSString* dateStr = [dateFormatter stringFromDate:[self valueForKey:currentProperty]];
+			[resultDict setValue:dateStr forKey:[self customKeyForPropertyName:currentProperty]];
+			
         } else {
             
             id kvcChild = [self valueForKey:currentProperty];
@@ -350,6 +393,15 @@ const char * property_getTypeString( objc_property_t property )
     return [[self objectToDictionary] JSONRepresentation];
 }
 
+- (id)
+checkNull:(id)param
+{
+	if (!param || [param isKindOfClass:[NSNull class]]) {
+		return nil;
+	}
+	
+	return param;
+}
 
 - (void)dealloc {
     [super dealloc];

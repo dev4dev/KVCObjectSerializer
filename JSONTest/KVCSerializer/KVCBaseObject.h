@@ -23,6 +23,7 @@
  */
 - (NSString *) getPropertyNameForJsonKey:(NSString *)jsonKey;
 - (NSString *) getJsonKeyForPropertyName:(NSString *)propertyName;
+- (NSString *) getDateFormatForPropertyName:(NSString *)propertyName;
 
 /*
  * Use the below two methods for deserializing to Objects
@@ -35,5 +36,8 @@
  */
 - (NSDictionary *)objectToDictionary;
 - (NSString *)objectToJson;
+- (void)updateFromDictionary:(NSDictionary*)dictionary;
+
+- (id)checkNull:(id)param;
 
 @end
