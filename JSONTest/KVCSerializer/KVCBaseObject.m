@@ -7,7 +7,6 @@
 //
 
 #import "KVCBaseObject.h"
-#import "SBJSON.h"
 
 static NSDateFormatter* dateFormatter;
 

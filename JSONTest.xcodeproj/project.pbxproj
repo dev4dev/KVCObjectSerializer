@@ -15,12 +15,6 @@
 		6021BFFE1457CAC10046B54B /* QBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021BFFD1457CAC10046B54B /* QBAppDelegate.m */; };
 		6021C0011457CAC10046B54B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6021BFFF1457CAC10046B54B /* MainStoryboard_iPhone.storyboard */; };
 		6021C0071457CAC10046B54B /* QBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0061457CAC10046B54B /* QBViewController.m */; };
-		6021C01B1457CAE70046B54B /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0101457CAE70046B54B /* NSObject+SBJSON.m */; };
-		6021C01C1457CAE70046B54B /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0121457CAE70046B54B /* NSString+SBJSON.m */; };
-		6021C01D1457CAE70046B54B /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0141457CAE70046B54B /* SBJSON.m */; };
-		6021C01E1457CAE70046B54B /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0161457CAE70046B54B /* SBJsonBase.m */; };
-		6021C01F1457CAE70046B54B /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0181457CAE70046B54B /* SBJsonParser.m */; };
-		6021C0201457CAE70046B54B /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C01A1457CAE70046B54B /* SBJsonWriter.m */; };
 		6021C0231457CE6D0046B54B /* KVCTestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0221457CE6D0046B54B /* KVCTestObject.m */; };
 		6021C0261457D27C0046B54B /* KVCChildObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6021C0251457D27C0046B54B /* KVCChildObject.m */; };
 		60E9D8D5149A027100E777C4 /* ParentObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E9D8D4149A027100E777C4 /* ParentObject.m */; };
@@ -31,6 +25,7 @@
 		60E9D8E4149A059500E777C4 /* Glossary.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E9D8E3149A059500E777C4 /* Glossary.m */; };
 		60E9D8E6149A0E4E00E777C4 /* sample_json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E9D8E5149A0E4E00E777C4 /* sample_json.txt */; };
 		60EB16DF14A3018300BA1507 /* KVCBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB16DE14A3018300BA1507 /* KVCBaseObject.m */; };
+		635F6106168AE0F4003E1AB0 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F6105168AE0F4003E1AB0 /* NSObject+JSON.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,19 +42,6 @@
 		6021C0001457CAC10046B54B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		6021C0051457CAC10046B54B /* QBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QBViewController.h; sourceTree = "<group>"; };
 		6021C0061457CAC10046B54B /* QBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QBViewController.m; sourceTree = "<group>"; };
-		6021C00E1457CAE70046B54B /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		6021C00F1457CAE70046B54B /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		6021C0101457CAE70046B54B /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		6021C0111457CAE70046B54B /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		6021C0121457CAE70046B54B /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		6021C0131457CAE70046B54B /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		6021C0141457CAE70046B54B /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
-		6021C0151457CAE70046B54B /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		6021C0161457CAE70046B54B /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		6021C0171457CAE70046B54B /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		6021C0181457CAE70046B54B /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
-		6021C0191457CAE70046B54B /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		6021C01A1457CAE70046B54B /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		6021C0211457CE6D0046B54B /* KVCTestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVCTestObject.h; sourceTree = "<group>"; };
 		6021C0221457CE6D0046B54B /* KVCTestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVCTestObject.m; sourceTree = "<group>"; };
 		6021C0241457D27C0046B54B /* KVCChildObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVCChildObject.h; sourceTree = "<group>"; };
@@ -79,6 +61,8 @@
 		60E9D8E5149A0E4E00E777C4 /* sample_json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sample_json.txt; path = JSONTest/sample_json.txt; sourceTree = "<group>"; };
 		60EB16DD14A3018300BA1507 /* KVCBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVCBaseObject.h; sourceTree = "<group>"; };
 		60EB16DE14A3018300BA1507 /* KVCBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVCBaseObject.m; sourceTree = "<group>"; };
+		635F6104168AE0F4003E1AB0 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
+		635F6105168AE0F4003E1AB0 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,9 +110,9 @@
 		6021BFF31457CAC10046B54B /* JSONTest */ = {
 			isa = PBXGroup;
 			children = (
+				635F6103168AE0E3003E1AB0 /* JSON */,
 				60EB16DC14A3018300BA1507 /* KVCSerializer */,
 				60E9D8D1149A024400E777C4 /* Test */,
-				6021C00D1457CAE70046B54B /* JSON */,
 				6021BFFC1457CAC10046B54B /* QBAppDelegate.h */,
 				6021BFFD1457CAC10046B54B /* QBAppDelegate.m */,
 				6021BFFF1457CAC10046B54B /* MainStoryboard_iPhone.storyboard */,
@@ -153,26 +137,6 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
-		};
-		6021C00D1457CAE70046B54B /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				6021C00E1457CAE70046B54B /* JSON.h */,
-				6021C00F1457CAE70046B54B /* NSObject+SBJSON.h */,
-				6021C0101457CAE70046B54B /* NSObject+SBJSON.m */,
-				6021C0111457CAE70046B54B /* NSString+SBJSON.h */,
-				6021C0121457CAE70046B54B /* NSString+SBJSON.m */,
-				6021C0131457CAE70046B54B /* SBJSON.h */,
-				6021C0141457CAE70046B54B /* SBJSON.m */,
-				6021C0151457CAE70046B54B /* SBJsonBase.h */,
-				6021C0161457CAE70046B54B /* SBJsonBase.m */,
-				6021C0171457CAE70046B54B /* SBJsonParser.h */,
-				6021C0181457CAE70046B54B /* SBJsonParser.m */,
-				6021C0191457CAE70046B54B /* SBJsonWriter.h */,
-				6021C01A1457CAE70046B54B /* SBJsonWriter.m */,
-			);
-			path = JSON;
-			sourceTree = SOURCE_ROOT;
 		};
 		60E9D8D1149A024400E777C4 /* Test */ = {
 			isa = PBXGroup;
@@ -200,6 +164,15 @@
 				60EB16DE14A3018300BA1507 /* KVCBaseObject.m */,
 			);
 			path = KVCSerializer;
+			sourceTree = "<group>";
+		};
+		635F6103168AE0E3003E1AB0 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				635F6104168AE0F4003E1AB0 /* NSObject+JSON.h */,
+				635F6105168AE0F4003E1AB0 /* NSObject+JSON.m */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,12 +241,6 @@
 				6021BFFA1457CAC10046B54B /* main.m in Sources */,
 				6021BFFE1457CAC10046B54B /* QBAppDelegate.m in Sources */,
 				6021C0071457CAC10046B54B /* QBViewController.m in Sources */,
-				6021C01B1457CAE70046B54B /* NSObject+SBJSON.m in Sources */,
-				6021C01C1457CAE70046B54B /* NSString+SBJSON.m in Sources */,
-				6021C01D1457CAE70046B54B /* SBJSON.m in Sources */,
-				6021C01E1457CAE70046B54B /* SBJsonBase.m in Sources */,
-				6021C01F1457CAE70046B54B /* SBJsonParser.m in Sources */,
-				6021C0201457CAE70046B54B /* SBJsonWriter.m in Sources */,
 				6021C0231457CE6D0046B54B /* KVCTestObject.m in Sources */,
 				6021C0261457D27C0046B54B /* KVCChildObject.m in Sources */,
 				60E9D8D5149A027100E777C4 /* ParentObject.m in Sources */,
@@ -283,6 +250,7 @@
 				60E9D8E1149A051600E777C4 /* GlossDiv.m in Sources */,
 				60E9D8E4149A059500E777C4 /* Glossary.m in Sources */,
 				60EB16DF14A3018300BA1507 /* KVCBaseObject.m in Sources */,
+				635F6106168AE0F4003E1AB0 /* NSObject+JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

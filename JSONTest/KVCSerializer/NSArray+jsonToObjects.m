@@ -15,15 +15,17 @@
 jsonToObjectsWithClass:(Class)className
 {
 	NSMutableArray* objectsArray = [NSMutableArray arrayWithCapacity:self.count];
-	[self enumerateObjectsUsingBlock:^(NSDictionary* json, NSUInteger idx, BOOL *stop) {
+	for (NSDictionary* json in self) {
 		id obj;
 		if ([className isSubclassOfClass:[KVCBaseObject class]]) {
 			obj = [className objectForDictionary:json];
 		} else {
 			obj = json;
 		}
-		[objectsArray addObject:obj];
-	}];
+		if (obj) {
+			[objectsArray addObject:obj];
+		}
+	}
 	
 	return objectsArray;
 }
